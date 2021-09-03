@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Log } from '../models/log';
@@ -11,6 +12,27 @@ import { Log } from '../models/log';
   providedIn: 'root'
 })
 export class DevloggerService {
+  
+  RemoveLog(deleteLog: Log) {
+    this.logs.forEach((cur,index)=>{
+      if(cur.id === deleteLog.id){
+        this.logs.splice(index,1);
+      }
+    })
+  }
+
+  updateLog(updLog:Log) {
+    this.logs.forEach((cur,index)=>{
+      if(updLog.id === cur.id){
+        this.logs.splice(index,1);
+      }
+    })
+    this.logs.unshift(updLog);
+  }
+
+  addLog(newLog:Log) {
+    this.logs.unshift(newLog)
+  }
   
   logs:Log[];
   //private logSource = new BehaviorSubject<Log>({id:null,text:null,date:null});

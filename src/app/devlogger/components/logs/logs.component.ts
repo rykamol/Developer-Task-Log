@@ -23,4 +23,10 @@ export class LogsComponent implements OnInit {
     this.event.emit(log);
   }
 
+  onSubmit(log:Log){
+    if(confirm("Are you sure?")){
+        this.logService.RemoveLog(log);
+      }
+    }
+
 }
