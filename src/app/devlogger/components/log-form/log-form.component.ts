@@ -43,6 +43,8 @@ export class LogFormComponent implements OnInit {
       }
       this.logService.updateLog(updLog)
     }
+
+    this.clearFrom();
   }
 
    uuidv4() {
@@ -53,9 +55,11 @@ export class LogFormComponent implements OnInit {
   }
 
   clearFrom(){
+    this.isNew = true;
     this.id ="";
     this.text ="";
     this.date ="";
+    this.logService.clearState();
   }
 
 }

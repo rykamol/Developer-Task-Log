@@ -1,7 +1,7 @@
  <div class="logs">
-   <ul class="list-group mt-3 ">
-
-    <li *ngFor="let log of logs" class="list-group-item d-flex justify-content-between align-items-center" >
+   <ul class="list-group mt-3 " *ngIf="loaded && logs?.length>0">
+      
+    <li *ngFor="let log of logs" [class.list-group-item-secondary]="selectedLog===log" class="list-group-item d-flex justify-content-between align-items-center" >
        <a (click)="Onclick(log)" href="javascript:void(0)" eat-click>{{log.text}} </a>
        <span class="log-date">{{log.date | date: 'short'}}</span>
        <i (click)="onSubmit(log)" class="fa fa-remove"></i>
@@ -10,3 +10,14 @@
    </ul>
 </div>
  
+<div *ngIf="loaded && logs.length==0" class="mt-5 text-center">
+   <div class="card">
+      <div class="card-body">
+         <h5>There are no logs in system</h5>
+      </div>
+   </div>
+</div>
+
+<div *ngIf="!loaded">
+   <h5>Loading ....</h5>
+</div>
