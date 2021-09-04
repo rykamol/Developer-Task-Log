@@ -23,6 +23,8 @@ stateteClear = this.stateSource.asObservable();
         this.logs.splice(index,1);
       }
     })
+    
+    localStorage.setItem('logs', JSON.stringify(this.logs))
   }
 
   updateLog(updLog:Log) {
@@ -32,10 +34,17 @@ stateteClear = this.stateSource.asObservable();
       }
     })
     this.logs.unshift(updLog);
+
+    //update localStorage
+    localStorage.setItem('logs', JSON.stringify(this.logs))
   }
 
   addLog(newLog:Log) {
     this.logs.unshift(newLog)
+
+    //add to localStorage
+
+    localStorage.setItem('logs', JSON.stringify(this.logs))
   }
   
   logs:Log[];
@@ -51,7 +60,15 @@ stateteClear = this.stateSource.asObservable();
    }
 
    getLogs():Observable<Log[]>{
-     return of(this.logs);
+
+    if(localStorage.getItem('logs') === null){
+      this.logs = [];
+    }else{
+      this.logs =  JSON.parse(localStorage.getItem('logs'))
+    }
+     return of(this.logs.sort((a,b)=>{
+       return b.date - a.date;
+     }));
    }
 
   //  setFromLog(log:Log){
